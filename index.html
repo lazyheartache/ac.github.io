@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Alpha Cocoa Canada — B2B Cocoa Ingredients</title>
+
+<style>
+/* ===============================
+   BRAND TOKENS
+================================ */
+:root {
+  --bg:#f3efe8;
+  --card:#fbf8f3;
+  --text:#1c1a17;
+  --muted:#6e655a;
+  --line:#d6cbbd;
+  --accent:#6b4a2d;
+  --accent-soft:rgba(107,74,45,.15);
+}
+
+/* DARK MODE */
+[data-theme="dark"] {
+  --bg:#0b0f14;
+  --card:#121824;
+  --text:#e9eef6;
+  --muted:#a9b4c4;
+  --line:#243043;
+  --accent:#8a5f3a;
+  --accent-soft:rgba(138,95,58,.25);
+}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:
+    radial-gradient(1000px 600px at 10% -10%, var(--accent-soft), transparent 40%),
+    var(--bg);
+  color:var(--text);
+  transition:background .3s,color .3s;
+}
+
+.wrap{max-width:1100px;margin:auto;padding:28px 18px 60px}
+
+/* ===============================
+   HEADER / BRAND
+================================ */
+header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:12px}
+
+.logo{
+  width:46px;height:46px;border-radius:12px;
+  background:var(--card);
+  box-shadow:0 10px 28px rgba(0,0,0,.18),
+             inset 0 1px 0 rgba(255,255,255,.6);
+  transition:.3s;
+}
+.logo:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 36px rgba(0,0,0,.28),
+             inset 0 2px 4px rgba(255,255,255,.6);
+}
+
+.brand h1{font-size:18px;margin:0}
+.brand p{margin:2px 0 0;font-size:12px;color:var(--muted)}
+
+.lang{display:flex;gap:8px}
+
+/* ===============================
+   BUTTONS
+================================ */
+.btn{
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--text);
+  padding:10px 12px;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:600;
+  transition:.2s;
+}
+.btn:hover{background:var(--accent-soft)}
+.btn.primary{
+  background:linear-gradient(135deg,#6b4a2d,#8a5f3a);
+  border-color:#6b4a2d;
+  color:#fff;
+}
+.btn.small{padding:8px 10px;font-size:12px}
+.btn.active{outline:2px solid var(--accent-soft)}
+
+/* ===============================
+   LAYOUT / CARDS
+================================ */
+.hero{margin-top:22px;display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 12px 32px rgba(0,0,0,.12);
+  transition:.3s;
+}
+.card:hover{transform:translateY(-2px)}
+
+.hero h2{font-size:34px;margin:0 0 10px}
+.sub{color:var(--muted);margin-bottom:16px;line-height:1.5}
+
+.kpis{display:flex;flex-wrap:wrap;gap:10px}
+.pill{
+  border:1px solid var(--line);
+  background:var(--accent-soft);
+  padding:10px 12px;
+  border-radius:999px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.stockRow{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+  align-items:center;
+  padding:12px 0;
+  border-top:1px solid var(--line);
+}
+.stockRow:first-child{border-top:none;padding-top:0}
+
+.badge{padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.in{background:rgba(107,74,45,.18);color:#6b4a2d;border:1px solid rgba(107,74,45,.4)}
+.low{background:rgba(160,120,60,.18);color:#8a5f3a;border:1px solid rgba(160,120,60,.4)}
+.out{background:rgba(0,0,0,.08);color:var(--text);border:1px solid rgba(0,0,0,.25)}
+
+.grid{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+
+label{display:block;font-size:12px;color:var(--muted);margin:10px 0 6px}
+input,select,textarea{
+  width:100%;border:1px solid var(--line);
+  background:transparent;color:var(--text);
+  padding:12px;border-radius:12px;
+}
+textarea{min-height:110px}
+
+.note{color:var(--muted);font-size:12px;line-height:1.5;margin-top:10px}
+
+footer{
+  margin-top:18px;
+  color:var(--muted);
+  font-size:12px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:space-between;
+}
+
+a{color:var(--accent);text-decoration:none}
+
+/* ===============================
+   THEME TOGGLE
+================================ */
+.theme-toggle{margin-left:10px}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<header>
+  <div class="brand">
+    <div class="logo">
+      <!-- SVG LOGO -->
+      <svg viewBox="0 0 100 100">
+        <rect x="5" y="5" width="90" height="90" rx="20" fill="#f3efe8"/>
+        <path d="M50 22c18 0 28 14 28 28S68 78 50 78 22 64 22 50 32 22 50 22z"
+              fill="none" stroke="#6b4a2d" stroke-width="6"/>
+        <path d="M50 34v32M50 50l-10-10M50 50l10-10"
+              stroke="#6b4a2d" stroke-width="6" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <h1 id="t_brand">Alpha Cocoa Canada</h1>
+      <p id="t_tag">Cocoa Ingredients — Trading & Supply</p>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center">
+    <div class="lang">
+      <button class="btn small active" id="btnEN">EN</button>
+      <button class="btn small" id="btnFR">FR</button>
+    </div>
+    <button class="btn small theme-toggle" id="themeToggle">☀ / 🌙</button>
+  </div>
+</header>
+
+<body>
+  
+
+    <section class="hero">
+      <div class="card">
+        <h2 id="t_h1">Cocoa ingredients in stock in Canada</h2>
+        <p class="sub" id="t_h1sub">
+          Cocoa butter and cocoa powder supplied to Canadian and international food manufacturers.
+          RFQ response within 24–48 hours.
+        </p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn primary" href="#rfq" id="t_cta">Request a Quote</a>
+          <a class="btn" href="#stock" id="t_cta2">View Canada Stock</a>
+        </div>
+
+        <div class="kpis">
+          <div class="pill" id="t_kpi1">No retail</div>
+          <div class="pill" id="t_kpi2">Documentation available per lot</div>
+          <div class="pill" id="t_kpi3">Flexible volumes</div>
+        </div>
+
+        <p class="note" id="t_priv">
+          Note: nothing here
+        </p>
+      </div>
+
+      <div class="card" id="stock">
+        <h3 style="margin:0 0 10px;" id="t_stockTitle">Canada Inventory Status</h3>
+
+        <!-- STOCK ITEMS (edit quantities/status as needed) -->
+        <div class="stockRow">
+          <div>
+            <div style="font-weight:800;" id="t_item1">Cocoa Butter (Food Grade)</div>
+            <div style="color:var(--muted); font-size:12px;" id="t_item1sub">Packaging: blocks / pails • Location: Canada warehouse</div>
+          </div>
+          <span class="badge in" id="t_item1badge">IN STOCK</span>
+        </div>
+
+        <div class="stockRow">
+          <div>
+            <div style="font-weight:800;" id="t_item2">Cocoa Powder (Natural)</div>
+            <div style="color:var(--muted); font-size:12px;" id="t_item2sub">Packaging: 20–25 kg bags • Location: Canada warehouse</div>
+          </div>
+          <span class="badge low" id="t_item2badge">LIMITED</span>
+        </div>
+
+        <div class="stockRow">
+          <div>
+            <div style="font-weight:800;" id="t_item3">Optional: Cocoa Liquor / Nibs</div>
+            <div style="color:var(--muted); font-size:12px;" id="t_item3sub">Available on request (lead time may apply)</div>
+          </div>
+          <span class="badge out" id="t_item3badge">ON REQUEST</span>
+        </div>
+
+        <div class="note" id="t_stockNote">
+          Want exact quantities and lead times? Submit an RFQ and specify monthly volume and application.
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h3 style="margin:0 0 10px;" id="t_howTitle">How it works</h3>
+        <ol style="margin:0; padding-left: 18px; color: var(--muted); line-height:1.65;">
+          <li id="t_how1">Submit your RFQ (specs, volume, application).</li>
+          <li id="t_how2">We review and confirm key requirements.</li>
+          <li id="t_how3">Receive a quotation within 24–48 hours.</li>
+          <li id="t_how4">Samples may be proposed after quotation review (if required).</li>
+          <li id="t_how5">Pilot supply, then recurring orders.</li>
+        </ol>
+
+        <hr style="border:none; border-top:1px solid var(--line); margin:16px 0;" />
+
+        <h3 style="margin:0 0 10px;" id="t_locTitle">Canada location</h3>
+        <p style="margin:0; color:var(--muted); line-height:1.6;">
+          <strong id="t_locName">Alpha Cocoa Canada</strong><br />
+          <span id="t_locAddr">Ingersoll, Ontario, Canada</span><br />
+          <span id="t_locHours">Business hours: Mon–Fri</span>
+        </p>
+      </div>
+
+      <div class="card" id="rfq">
+        <h3 style="margin:0 0 10px;" id="t_rfqTitle">Request a Quote (RFQ)</h3>
+        <p class="note" style="margin-top:0;" id="t_rfqSub">
+          B2B only. Please include monthly volume and application for fastest response.
+        </p>
+
+        <!-- This is a front-end demo form. Replace action with your form tool (Brevo/HubSpot/Formspree) when ready. -->
+        <form id="rfqForm">
+          <div class="formRow">
+            <div>
+              <label for="company" id="t_f_company">Company name</label>
+              <input id="company" name="company" required />
+            </div>
+            <div>
+              <label for="name" id="t_f_name">Contact name</label>
+              <input id="name" name="name" required />
+            </div>
+          </div>
+
+          <div class="formRow">
+            <div>
+              <label for="email" id="t_f_email">Email</label>
+              <input id="email" name="email" type="email" required />
+            </div>
+            <div>
+              <label for="region" id="t_f_region">Province / Country</label>
+              <input id="region" name="region" placeholder="Ontario, Canada" required />
+            </div>
+          </div>
+
+          <div class="formRow">
+            <div>
+              <label for="product" id="t_f_product">Product</label>
+              <select id="product" name="product" required>
+                <option value="butter" id="t_opt_butter">Cocoa Butter</option>
+                <option value="powder" id="t_opt_powder">Cocoa Powder</option>
+                <option value="both" id="t_opt_both">Both</option>
+              </select>
+            </div>
+            <div>
+              <label for="volume" id="t_f_volume">Monthly volume (kg)</label>
+              <input id="volume" name="volume" type="number" min="1" required />
+            </div>
+          </div>
+
+          <label for="application" id="t_f_app">Application</label>
+          <input id="application" name="application" placeholder="Chocolate / Bakery / Beverage / Dessert" required />
+
+          <label for="specs" id="t_f_specs">Target specifications</label>
+          <textarea id="specs" name="specs" placeholder="Fat %, color, granulometry, packaging preference, delivery terms..."></textarea>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+            <button class="btn primary" type="submit" id="t_submit">Submit RFQ</button>
+            <button class="btn" type="reset" id="t_reset">Reset</button>
+          </div>
+
+          <p class="note" id="t_formNote">
+            Demo form only: it will open your email client. For full automation, connect this form to Brevo.
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div>
+        <span id="t_footer1">© </span><span id="t_footer2">Alpha Cocoa Canada</span>
+        <span> • </span>
+        <span id="t_footer3">B2B Cocoa Ingredients</span>
+      </div>
+      <div>
+        <a href="mailto:sales@alphacocoacanada.com" id="t_mail">Email sales</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // --- Simple EN/FR copy (edit freely) ---
+    const copy = {
+      en: {
+        brand: "Alpha Cocoa Canada",
+        tag: "B2B Cocoa Ingredients — Trading & Supply",
+        h1: "Cocoa ingredients in stock in Canada",
+        h1sub: "Cocoa butter and cocoa powder supplied to Canadian and international food manufacturers. RFQ response within 24–48 hours.",
+        cta: "Request a Quote",
+        cta2: "View Canada Stock",
+        kpi1: "B2B only • No retail",
+        kpi2: "Documentation available per lot",
+        kpi3: "Flexible volumes",
+        priv: "Note: This template displays “Ingersoll, Ontario” without a street address for privacy. Replace the address line with the official business address once ready to publish.",
+
+        stockTitle: "Canada Inventory Status",
+        item1: "Cocoa Butter (Food Grade)",
+        item1sub: "Packaging: blocks / pails • Location: Canada warehouse",
+        item1badge: "IN STOCK",
+        item2: "Cocoa Powder (Natural)",
+        item2sub: "Packaging: 20–25 kg bags • Location: Canada warehouse",
+        item2badge: "LIMITED",
+        item3: "Optional: Cocoa Liquor / Nibs",
+        item3sub: "Available on request (lead time may apply)",
+        item3badge: "ON REQUEST",
+        stockNote: "Want exact quantities and lead times? Submit an RFQ and specify monthly volume and application.",
+
+        howTitle: "How it works",
+        how1: "Submit your RFQ (specs, volume, application).",
+        how2: "We review and confirm key requirements.",
+        how3: "Receive a quotation within 24–48 hours.",
+        how4: "Samples may be proposed after quotation review (if required).",
+        how5: "Pilot supply, then recurring orders.",
+
+        locTitle: "Canada location",
+        locName: "Alpha Cocoa Canada",
+        locAddr: "Ingersoll, Ontario, Canada",
+        locHours: "Business hours: Mon–Fri",
+
+        rfqTitle: "Request a Quote (RFQ)",
+        rfqSub: "B2B only. Please include monthly volume and application for fastest response.",
+        f_company: "Company name",
+        f_name: "Contact name",
+        f_email: "Email",
+        f_region: "Province / Country",
+        f_product: "Product",
+        opt_butter: "Cocoa Butter",
+        opt_powder: "Cocoa Powder",
+        opt_both: "Both",
+        f_volume: "Monthly volume (kg)",
+        f_app: "Application",
+        f_specs: "Target specifications",
+        submit: "Submit RFQ",
+        reset: "Reset",
+        formNote: "Demo form only: it will open your email client. For full automation, connect this form to Brevo.",
+
+        footer1: "© ",
+        footer2: "Alpha Cocoa Canada",
+        footer3: "B2B Cocoa Ingredients",
+        mail: "Email sales"
+      },
+      fr: {
+        brand: "Alpha Cocoa Canada",
+        tag: "Ingrédients cacao B2B — Négoce & Approvisionnement",
+        h1: "Ingrédients cacao en stock au Canada",
+        h1sub: "Beurre de cacao et poudre de cacao pour fabricants au Canada et à l’international. Réponse devis sous 24–48 h.",
+        cta: "Demander un devis",
+        cta2: "Voir le stock au Canada",
+        kpi1: "B2B uniquement • Pas de détail",
+        kpi2: "Documentation disponible par lot",
+        kpi3: "Volumes flexibles",
+        priv: "Note : ce modèle affiche “Ingersoll, Ontario” sans adresse de rue par prudence. Remplacer la ligne d’adresse par l’adresse officielle de l’entreprise au moment de publier.",
+
+        stockTitle: "Statut du stock au Canada",
+        item1: "Beurre de cacao (qualité alimentaire)",
+        item1sub: "Conditionnement : blocs / seaux • Localisation : entrepôt Canada",
+        item1badge: "EN STOCK",
+        item2: "Poudre de cacao (naturelle)",
+        item2sub: "Conditionnement : sacs 20–25 kg • Localisation : entrepôt Canada",
+        item2badge: "LIMITÉ",
+        item3: "Option : Masse cacao / Nibs",
+        item3sub: "Disponible sur demande (délai possible)",
+        item3badge: "SUR DEMANDE",
+        stockNote: "Pour quantités exactes et délais : soumettre une RFQ avec volume mensuel et application.",
+
+        howTitle: "Comment ça marche",
+        how1: "Soumettre la demande de devis (spécifications, volume, usage).",
+        how2: "Revue et confirmation des exigences clés.",
+        how3: "Réception du devis sous 24–48 h.",
+        how4: "Échantillons proposés après revue du devis (si nécessaire).",
+        how5: "Commande pilote, puis commandes récurrentes.",
+
+        locTitle: "Localisation Canada",
+        locName: "Alpha Cocoa Canada",
+        locAddr: "Ingersoll, Ontario, Canada",
+        locHours: "Heures d’affaires : lun–ven",
+
+        rfqTitle: "Demande de devis (RFQ)",
+        rfqSub: "B2B uniquement. Inclure le volume mensuel et l’application pour accélérer la réponse.",
+        f_company: "Nom de l’entreprise",
+        f_name: "Nom du contact",
+        f_email: "Email",
+        f_region: "Province / Pays",
+        f_product: "Produit",
+        opt_butter: "Beurre de cacao",
+        opt_powder: "Poudre de cacao",
+        opt_both: "Les deux",
+        f_volume: "Volume mensuel (kg)",
+        f_app: "Application",
+        f_specs: "Spécifications recherchées",
+        submit: "Envoyer la RFQ",
+        reset: "Réinitialiser",
+        formNote: "Formulaire démo : ouvre votre logiciel email. Pour l’automatisation complète, connecter ce formulaire à Brevo.",
+
+        footer1: "© ",
+        footer2: "Alpha Cocoa Canada",
+        footer3: "Ingrédients cacao B2B",
+        mail: "Écrire à sales@"
+      }
+    };
+
+    function setLang(lang) {
+      const c = copy[lang];
+      const ids = [
+        ["t_brand", c.brand],
+        ["t_tag", c.tag],
+        ["t_h1", c.h1],
+        ["t_h1sub", c.h1sub],
+        ["t_cta", c.cta],
+        ["t_cta2", c.cta2],
+        ["t_kpi1", c.kpi1],
+        ["t_kpi2", c.kpi2],
+        ["t_kpi3", c.kpi3],
+        ["t_priv", c.priv],
+
+        ["t_stockTitle", c.stockTitle],
+        ["t_item1", c.item1],
+        ["t_item1sub", c.item1sub],
+        ["t_item1badge", c.item1badge],
+        ["t_item2", c.item2],
+        ["t_item2sub", c.item2sub],
+        ["t_item2badge", c.item2badge],
+        ["t_item3", c.item3],
+        ["t_item3sub", c.item3sub],
+        ["t_item3badge", c.item3badge],
+        ["t_stockNote", c.stockNote],
+
+        ["t_howTitle", c.howTitle],
+        ["t_how1", c.how1],
+        ["t_how2", c.how2],
+        ["t_how3", c.how3],
+        ["t_how4", c.how4],
+        ["t_how5", c.how5],
+
+        ["t_locTitle", c.locTitle],
+        ["t_locName", c.locName],
+        ["t_locAddr", c.locAddr],
+        ["t_locHours", c.locHours],
+
+        ["t_rfqTitle", c.rfqTitle],
+        ["t_rfqSub", c.rfqSub],
+        ["t_f_company", c.f_company],
+        ["t_f_name", c.f_name],
+        ["t_f_email", c.f_email],
+        ["t_f_region", c.f_region],
+        ["t_f_product", c.f_product],
+        ["t_opt_butter", c.opt_butter],
+        ["t_opt_powder", c.opt_powder],
+        ["t_opt_both", c.opt_both],
+        ["t_f_volume", c.f_volume],
+        ["t_f_app", c.f_app],
+        ["t_f_specs", c.f_specs],
+        ["t_submit", c.submit],
+        ["t_reset", c.reset],
+        ["t_formNote", c.formNote],
+
+        ["t_footer1", c.footer1],
+        ["t_footer2", c.footer2],
+        ["t_footer3", c.footer3],
+        ["t_mail", c.mail],
+      ];
+
+      ids.forEach(([id, text]) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      });
+
+      document.getElementById("btnEN").classList.toggle("active", lang === "en");
+      document.getElementById("btnFR").classList.toggle("active", lang === "fr");
+      document.documentElement.lang = lang;
+    }
+
+    document.getElementById("btnEN").addEventListener("click", () => setLang("en"));
+    document.getElementById("btnFR").addEventListener("click", () => setLang("fr"));
+
+    // Demo form handler: opens email client with prefilled RFQ content.
+    document.getElementById("rfqForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const v = (id) => (document.getElementById(id).value || "").trim();
+      const productMap = {
+        butter: document.getElementById("t_opt_butter").textContent,
+        powder: document.getElementById("t_opt_powder").textContent,
+        both: document.getElementById("t_opt_both").textContent
+      };
+
+      const subject = encodeURIComponent("RFQ — Alpha Cocoa Canada");
+      const body = encodeURIComponent(
+        `Company: ${v("company")}\n` +
+        `Contact: ${v("name")}\n` +
+        `Email: ${v("email")}\n` +
+        `Region: ${v("region")}\n` +
+        `Product: ${productMap[document.getElementById("product").value]}\n` +
+        `Monthly volume (kg): ${v("volume")}\n` +
+        `Application: ${v("application")}\n\n` +
+        `Target specs:\n${v("specs")}\n`
+      );
+
+      // Replace email below with your receiving inbox (e.g., sales@alphacocoacanada.com)
+      window.location.href = `mailto:sales@alphacocoacanada.com?subject=${subject}&body=${body}`;
+    });
+    document.getElementById("themeToggle").onclick = () => {
+  const t = document.documentElement.getAttribute("data-theme");
+  document.documentElement.setAttribute("data-theme", t === "dark" ? "light" : "dark");
+};
+
+    // Default language
+    setLang("en");
+  </script>
+</body>
+</html>
